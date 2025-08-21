@@ -9,7 +9,7 @@
 
   background: hsl(220, 15%, 20%);
   border-radius: 12px;
-  /* overflow: hidden; */
+  overflow: hidden;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
@@ -21,6 +21,7 @@
   padding: 0.75rem 1rem;
   border-radius: 8px;
   transition: color 0.3s;
+  overflow: hidden;
 }
 
 .buttons {

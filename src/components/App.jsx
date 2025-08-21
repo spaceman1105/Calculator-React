@@ -32,6 +32,7 @@ export default function App() {
       let result
       if (operator === "+") result = num1 + num2
       else if (operator === "-") result = num1 - num2
+      else if (operand2 === '') result = num1
       setOperand1(result.toString())
       setOperand2("")
       setOperator("")
