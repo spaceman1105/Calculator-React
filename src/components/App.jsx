@@ -1,6 +1,8 @@
 import { useState } from "react"
 import styles from "./App.module.css"
-import { buttons } from "../data"
+import { buttons } from "../buttons"
+import handleDigitClick from "../handlers/handle-digit"
+import handleOperatorClick from "../handlers/handle-operator"
 
 export default function App() {
   const [operand1, setOperand1] = useState("")
@@ -8,36 +10,15 @@ export default function App() {
   const [operand2, setOperand2] = useState("")
   const [resultShown, setResultShown] = useState(false)
 
-  function handleDigitClick(digit) {
-    if (!operator) {
-      setOperand1((prev) => (resultShown ? digit : prev + digit))
-      setResultShown(false)
-    } else {
-      setOperand2((prev) => prev + digit)
-    }
-  }
-
-  function handleOperatorClick(oper) {
-    if (oper === "C") {
-      setOperand1("")
-      setOperand2("")
-      setOperator("")
-      setResultShown(false)
-    } else if (oper === "+" || oper === "-") {
-      setOperator(oper)
-      setResultShown(false)
-    } else if (oper === "=") {
-      const num1 = Number(operand1)
-      const num2 = Number(operand2)
-      let result
-      if (operator === "+") result = num1 + num2
-      else if (operator === "-") result = num1 - num2
-      else if (operand2 === '') result = num1
-      setOperand1(result.toString())
-      setOperand2("")
-      setOperator("")
-      setResultShown(true)
-    }
+  const state = {
+    operand1,
+    setOperand1,
+    operator,
+    setOperator,
+    operand2,
+    setOperand2,
+    resultShown,
+    setResultShown,
   }
 
   return (
@@ -57,8 +38,8 @@ export default function App() {
             key={btn.label}
             onClick={() =>
               btn.type === "digit"
-                ? handleDigitClick(btn.label)
-                : handleOperatorClick(btn.label)
+                ? handleDigitClick(btn.label, state)
+                : handleOperatorClick(btn.label, state)
             }
             className={`${
               btn.type === "digit" ? styles.digit : styles.operator
